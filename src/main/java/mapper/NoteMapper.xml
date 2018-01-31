@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.NoteDao">
+
+	<select id="findByNoteBookId" parameterType="String" resultType="entity.Note">
+		SELECT * FROM note where notebook_id = #{notebook_id}
+	</select>
+	<insert id="addNote" parameterType="entity.Note">
+		insert into note values(#{note_id},#{notebook_id},#{user_id},#{note_title},
+		                        #{note_content},#{note_create_time},#{note_last_modify_time},
+		                        #{share_status},#{delete_status})
+	</insert>
+	<select id="findByNoteId" parameterType="String" resultType="entity.Note">
+		select * from note where note_id = #{note_id}
+	</select>
+	
+	<update id="updateNoteByNoteId" parameterType="entity.Note">
+		UPDATE note 
+		SET note_title = #{note_title}, 
+		note_content = #{note_content}, 
+		note_last_modify_time = #{note_last_modify_time},
+		share_status = #{share_status},
+		delete_status = #{delete_status}
+		WHERE note_id = #{note_id}
+	</update>
+	
+	<select id="findByKeyWord" parameterType="Map" resultType="entity.Note">
+		SELECT * FROM note WHERE note_title LIKE CONCAT(CONCAT('%',#{keyWord}),'%')
+		AND delete_status = 0
+		LIMIT #{begin}, #{count}
+	</select>
+		
+</mapper>

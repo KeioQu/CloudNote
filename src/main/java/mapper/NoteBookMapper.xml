@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+          PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.NoteBookDao">
+	<select id="findByUserId" parameterType="String" resultType="entity.NoteBook">
+		SELECT * FROM notebook where user_id = #{userId}
+	</select>
+	<insert id="addNoteBook" parameterType="entity.NoteBook">
+		INSERT INTO notebook VALUES(#{notebook_id}, #{user_id}, #{notebook_name}, #{notebook_desc})
+	</insert>
+		
+</mapper>
